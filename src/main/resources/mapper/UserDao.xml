@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.capisceBack.dao.UserDao">
+
+    <select id="userLogin" resultType="User" parameterType="String">
+        SELECT * FROM user_info_log_in WHERE userName = #{userName} AND password = #{password}
+    </select>
+
+    <select id="updateLoginTime" parameterType="Date">
+        UPDATE user_info_log_in SET loginTime = #{loginTime},isLogin = TRUE
+    </select>
+
+    <select id="userRegister" parameterType="Map">
+        INSERT user_info_log_in SET userName = #{userMap.userName},password = #{userMap.password},phone = #{userMap.phone},deviceToken=#{userMap.deviceToken},loginTime = #{userMap.loginTime}
+    </select>
+</mapper>

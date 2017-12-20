@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="capisceBack:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="capisceBack.war">
+      <element id="artifact" artifact-name="capisceBack:war exploded" />
+    </root>
+  </artifact>
+</component>
