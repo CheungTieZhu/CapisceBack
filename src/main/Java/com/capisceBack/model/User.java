@@ -3,8 +3,9 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.Date;
 public class User {
+    private int id;
+    private String realName;
     private String userName;
-    private String password;
     private String phone;
     private Date loginTime;
     private Date logOutTime;
@@ -12,17 +13,23 @@ public class User {
     private String deviceToken;
     private String userToken;
 
+    public  int getId(){
+        return  id;
+    }
+    public void setId(){
+        this.id = id;
+    }
+    public String getRealName(){
+        return realName;
+    }
+    public void setLogOutTime(){
+        this.realName = realName;
+    }
     public String getUserName(){
         return userName;
     }
     public void setUsername(String userName) {
         this.userName = userName;
-    }
-    public String getPassword(){
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
     }
     public String getPhone(){
         return phone;
