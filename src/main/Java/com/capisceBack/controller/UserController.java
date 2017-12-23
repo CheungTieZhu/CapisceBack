@@ -3,14 +3,13 @@ import com.capisceBack.service.UserService;
 import com.capisceBack.model.User;
 import com.capisceBack.util.Response;
 import com.capisceBack.util.ResponseFactory;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
-import javax.json.JsonArray;
 
 @Controller
 @RequestMapping("/user")
@@ -22,20 +21,18 @@ public class UserController {
     Map<String, Object> userLogin(@RequestBody Map<String, Object> data) throws IOException {
         //初始化 Response
         Response responseContent = ResponseFactory.newInstance();
-        String errorMsg = null;
         String result = Response.RESPONSE_RESULT_ERROR;
         String userName = (String) data.get("userName");
         String password = (String) data.get("password");
         User user = this.userService.userLogin(userName,password);
-
         if (user==null){
             responseContent.setResponseMsg(result);
-            responseContent.setResponseData(user);
+            responseContent.setResponseData(null);
         }else{
             result = Response.RESPONSE_RESULT_SUCCESS;
             responseContent.setResponseMsg(result);
             responseContent.setResponseData(user);
-            this.userService.updateLoginTime();
+            this.userService.updateLoginTime(userName);
         }
         return responseContent.generateResponse();
     }
@@ -56,10 +53,45 @@ public class UserController {
             responseContent.setResponseResult(result);
             responseContent.setResponseMsg(result);
         }catch (Exception e){
-            result = Response.RESPONSE_RESULT_ERROR;
             responseContent.setResponseResult(result);
             responseContent.setResponseMsg(e.getMessage());
         }
         return responseContent.generateResponse();
     }
+
+    @RequestMapping(value = "/getInfo", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> userGetInfo(@Param("userName") String userName,
+                                  @Param("userToken") String userToken) throws IOException {
+        Response responseContent = ResponseFactory.newInstance();
+        String result = Response.RESPONSE_RESULT_ERROR;
+        User user = this.userService.getUserInfo(userName,userToken);
+        if (user==null){
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(null);
+        }else{
+            result = Response.RESPONSE_RESULT_SUCCESS;
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(user);
+        }
+        return responseContent.generateResponse();
+    }
+
+    @RequestMapping(value = "/logOut", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> userLogOut(@Param("userName") String userName) throws IOException {
+        Response responseContent = ResponseFactory.newInstance();
+        String result = Response.RESPONSE_RESULT_ERROR;
+        try {
+            this.userService.userLogOut(userName);
+            result = Response.RESPONSE_RESULT_SUCCESS;
+            responseContent.setResponseResult(result);
+            responseContent.setResponseMsg(result);
+        }catch (Exception e){
+            responseContent.setResponseResult(result);
+            responseContent.setResponseMsg(e.getMessage());
+        }
+        return responseContent.generateResponse();
+    }
+
 }

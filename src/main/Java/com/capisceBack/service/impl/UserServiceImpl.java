@@ -15,9 +15,12 @@ public class UserServiceImpl implements UserService{
         return this.userDao.userLogin(userName,password);
     }
 
-    public void updateLoginTime() {
+    public void updateLoginTime(String userName) {
         Date loginTime = new Date();
-        this.userDao.updateLoginTime(loginTime);
+        HashMap<String,Object> userMap = new  HashMap<String,Object>();
+        userMap.put("userName",userName);
+        userMap.put("loginTime",loginTime);
+        this.userDao.updateLoginTime(userMap);
     }
 
 
@@ -30,5 +33,19 @@ public class UserServiceImpl implements UserService{
         userMap.put("deviceToken",deviceToken);
         userMap.put("loginTime",loginTime);
         this.userDao.userRegister(userMap);
+    }
+
+    public User getUserInfo(String userName,String userToken){
+        return this.userDao.getUserInfo(userName,userToken);
+    }
+
+    public void userLogOut(String userName){
+        Date loginTime = new Date();
+        HashMap<String,Object> userMap = new  HashMap<String,Object>();
+        String userToken  = loginTime.toString()+userName+"CapisceDuangDuang";
+        userMap.put("loginTime",loginTime);
+        userMap.put("userName",userName);
+        userMap.put("userToken",userToken);
+        this.userDao.userLogOut(userMap);
     }
 }

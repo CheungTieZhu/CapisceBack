@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public interface UserDao {
     User userLogin(@Param("userName")String userName,@Param("password")String password);
-    void updateLoginTime(@Param("loginTime")Date loginTime);
+    void updateLoginTime(@Param("userMap")HashMap userMap);
     void userRegister(@Param("userMap")HashMap userMap);
+    void userLogOut(@Param("userMap")HashMap userMap);
+    User getUserInfo(@Param("userName")String userName,@Param("userToken")String userToken);
 }
