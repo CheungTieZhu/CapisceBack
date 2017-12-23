@@ -13,6 +13,6 @@
     </select>
 
     <select id="userRegister" parameterType="Map">
-        INSERT user_info_log_in SET userName = #{userMap.userName},password = #{userMap.password},phone = #{userMap.phone},deviceToken=#{userMap.deviceToken},loginTime = #{userMap.loginTime}
+        INSERT user_info_log_in SET userName = #{userMap.userName},password = #{userMap.password},phone = #{userMap.phone},deviceToken=#{userMap.deviceToken},loginTime = #{userMap.loginTime},logOutTime = #{userMap.loginTime}
     </select>
 </mapper>

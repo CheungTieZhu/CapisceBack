@@ -16,7 +16,7 @@ public class Response {
 
     // response 中可能使用的值
     private static final String RESPONSE_RESULT = "result";
-    private static final String RESPONSE_MSG = "msg";
+    private static final String RESPONSE_MSG = "message";
     private static final String RESPONSE_DATA = "data";
     private static final String RESPONSE_TOTAL = "total";
 

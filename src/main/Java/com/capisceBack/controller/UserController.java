@@ -7,23 +7,25 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+import javax.json.JsonArray;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Resource
     private UserService userService;
-    @RequestMapping(value = "/Login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> userLogin(@RequestParam("userName") String userName,
-                                  @RequestParam("password") String password) throws IOException {
+    Map<String, Object> userLogin(@RequestBody Map<String, Object> data) throws IOException {
         //初始化 Response
         Response responseContent = ResponseFactory.newInstance();
-
         String errorMsg = null;
         String result = Response.RESPONSE_RESULT_ERROR;
+        String userName = (String) data.get("userName");
+        String password = (String) data.get("password");
         User user = this.userService.userLogin(userName,password);
 
         if (user==null){
@@ -38,19 +40,24 @@ public class UserController {
         return responseContent.generateResponse();
     }
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    Map<String, Object> userRegister(@RequestParam("userName") String userName,
-                                     @RequestParam("password") String password,
-                                     @RequestParam("phone") String phone,
-                                     @RequestParam("deviceToken") String deviceToken) throws IOException {
+    public @ResponseBody
+    Map<String, Object> userRegister(@RequestBody Map<String, Object> data) throws IOException {
 
         //初始化 Response
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
+        String userName = (String) data.get("userName");
+        String password = (String) data.get("password");
+        String phone = (String) data.get("phone");
+        String deviceToken = (String) data.get("deviceToken");
         try {
             this.userService.userRegister(userName, password, phone, deviceToken);
             result = Response.RESPONSE_RESULT_SUCCESS;
+            responseContent.setResponseResult(result);
             responseContent.setResponseMsg(result);
         }catch (Exception e){
+            result = Response.RESPONSE_RESULT_ERROR;
+            responseContent.setResponseResult(result);
             responseContent.setResponseMsg(e.getMessage());
         }
         return responseContent.generateResponse();
