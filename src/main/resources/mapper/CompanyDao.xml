@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.capisceBack.dao.CompanyDao">
+
+    <select id="getCompanyInfo" resultType="Company" parameterType="String">
+         SELECT * FROM company_orgnization_detail  WHERE userName = #{userName} AND userToken = #{userToken}
+    </select>
+
+    <select id="getCompanyDescription" resultType="CompanyDescription" parameterType="String">
+        SELECT * FROM company_detail_description  WHERE company = #{company}
+    </select>
+
+    <select id="setCompanyDescription" parameterType="String">
+        INSERT company_detail_description SET company = #{company},business = #{business},description = #{description},companyIcon = #{companyIcon}
+    </select>
+
+    <select id="createCompanyTable" parameterType="String" statementType="STATEMENT">
+        CREATE TABLE  ${company}
+        (
+          userName VARCHAR(20),
+          apartment VARCHAR(20),
+          team VARCHAR(20),
+          level INT
+        );
+    </select>
+
+    <select id="createFunderData" parameterType="String" statementType="STATEMENT">
+        INSERT ${company} SET userName = ${userName},level = 4
+    </select>
+
+</mapper>

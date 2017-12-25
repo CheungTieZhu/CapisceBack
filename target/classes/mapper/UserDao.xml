@@ -8,11 +8,36 @@
         SELECT * FROM user_info_log_in WHERE userName = #{userName} AND password = #{password}
     </select>
 
-    <select id="updateLoginTime" parameterType="Date">
-        UPDATE user_info_log_in SET loginTime = #{loginTime},isLogin = TRUE
+    <select id="updateLoginTime" parameterType="Map">
+        UPDATE user_info_log_in SET loginTime = #{userMap.loginTime},isLogin = TRUE WHERE userName = #{userMap.userName}
     </select>
 
     <select id="userRegister" parameterType="Map">
-        INSERT user_info_log_in SET userName = #{userMap.userName},password = #{userMap.password},phone = #{userMap.phone},deviceToken=#{userMap.deviceToken},loginTime = #{userMap.loginTime},logOutTime = #{userMap.loginTime}
+        INSERT
+        user_info_log_in
+        SET
+        userName = #{userMap.userName},
+        password = #{userMap.password},
+        phone = #{userMap.phone},
+        deviceToken=#{userMap.deviceToken},
+        loginTime = #{userMap.loginTime},
+        logOutTime = #{userMap.loginTime};
     </select>
+
+    <select id="getUserInfo" resultType="User" parameterType="String">
+        SELECT * FROM user_info_log_in WHERE userName = #{userName} AND userToken = #{userToken}
+    </select>
+
+    <select id="userLogOut" parameterType="Map">
+        UPDATE
+          user_info_log_in
+          SET
+          userToken = #{userMap.userToken},
+          userToken = #{userMap.userToken},
+          isLogin = FALSE,
+          logOutTime = #{userMap.logOutTime}
+          WHERE
+          userName =  #{userMap.userName}
+    </select>
+
 </mapper>

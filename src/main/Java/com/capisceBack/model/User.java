@@ -16,13 +16,13 @@ public class User {
     public  int getId(){
         return  id;
     }
-    public void setId(){
+    public void setId(int id){
         this.id = id;
     }
     public String getRealName(){
         return realName;
     }
-    public void setLogOutTime(){
+    public void setRealName(String realName){
         this.realName = realName;
     }
     public String getUserName(){
@@ -64,7 +64,6 @@ public class User {
     public String getUserToken(){
         return userToken;
     }
-
     public void setUserToken(String userToken) {
         this.userToken = userToken;
     }
