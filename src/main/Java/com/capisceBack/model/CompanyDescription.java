@@ -5,6 +5,8 @@ public class CompanyDescription {
     private String business;
     private String description;
     private String companyIcon;
+    private int employeeNumber;
+    private String ownerName;
 
     public  String getCompany(){
         return  company;
@@ -29,5 +31,17 @@ public class CompanyDescription {
     }
     public void setCompanyIcon(String companyIcon) {
         this.companyIcon = companyIcon;
+    }
+    public int getEmployeeNumber(){
+        return employeeNumber;
+    }
+    public void setEmployeeNumber(int employeeNumber) {
+        this.employeeNumber = employeeNumber;
+    }
+    public String getOwnerName(){
+        return ownerName;
+    }
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }

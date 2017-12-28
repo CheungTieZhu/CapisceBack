@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 
@@ -26,15 +28,27 @@ public class CompanyController {
                                        @Param("userToken") String userToken) throws IOException {
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
-        Company company = this.companyService.getCompanyInfo(userName,userToken);
-        if (company==null){
-            responseContent.setResponseMsg(result);
-            responseContent.setResponseData(null);
-        }else{
-            result = Response.RESPONSE_RESULT_SUCCESS;
-            responseContent.setResponseMsg(result);
-            responseContent.setResponseData(company);
+        List<Company> company = this.companyService.getCompanyInfo(userName,userToken);
+
+        if (company.size()==0){
+            Company nullShow = new Company();
+            nullShow.setApartment("UNKNOWN");
+            nullShow.setCompany("UNKNOWN");
+            nullShow.setLevel(0);
+            nullShow.setTeam("UNKNOWN");
+            company.add(nullShow);
         }
+        try {
+            result = Response.RESPONSE_RESULT_SUCCESS;
+            HashMap companyMap = new HashMap();
+            companyMap.put("company", company);
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(companyMap);
+        }catch (Exception e){
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(e.getMessage());
+        }
+
         return responseContent.generateResponse();
     }
     @RequestMapping(value = "/getCompanyDescription", method = RequestMethod.GET)

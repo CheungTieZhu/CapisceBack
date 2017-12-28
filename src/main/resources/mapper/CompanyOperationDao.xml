@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.capisceBack.dao.CompanyOperationDao">
+    <select id="getCompanyInfo" resultType="CompanyDescription" parameterType="String">
+        SELECT
+          description.*,
+          GROUP_CONCAT(company.realName) as ownerName,
+          COUNT(*) as employeeNumber
+        from
+          company_detail_description as description,
+          company_orgnization_detail as company
+        where
+          description.company = #{company}
+        AND
+          company.level = 4
+        AND
+          company.company = #{company}
+        group by description.company
+    </select>
+</mapper>
