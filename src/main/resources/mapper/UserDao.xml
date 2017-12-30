@@ -21,7 +21,8 @@
         phone = #{userMap.phone},
         deviceToken=#{userMap.deviceToken},
         loginTime = #{userMap.loginTime},
-        logOutTime = #{userMap.loginTime};
+        logOutTime = #{userMap.loginTime},
+        registerStatus = #{userMap.registerStatus};
     </select>
 
     <select id="getUserInfo" resultType="User" parameterType="String">
@@ -38,6 +39,10 @@
           logOutTime = #{userMap.logOutTime}
           WHERE
           userName =  #{userMap.userName}
+    </select>
+
+    <select id="getOtherUserInfo" resultType="Map" parameterType="String">
+        SELECT userName,headImageUrl,registerStatus FROM user_info_log_in WHERE realName = #{realName}
     </select>
 
 </mapper>

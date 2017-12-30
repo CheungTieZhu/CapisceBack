@@ -5,6 +5,7 @@ public class Company {
     private String apartment;
     private String team;
     private int level;
+    private String companyIcon;
 
     public  String getCompany(){
         return  company;
@@ -29,5 +30,11 @@ public class Company {
     }
     public void setLevel(int level) {
         this.level = level;
+    }
+    public  String getCompanyIcon(){
+        return  companyIcon;
+    }
+    public void setCompanyIcon(String companyIcon){
+        this.companyIcon = companyIcon;
     }
 }

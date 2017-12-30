@@ -12,6 +12,7 @@ public class User {
     private Bool isLogin;
     private String deviceToken;
     private String userToken;
+    private String headImageUrl;
 
     public  int getId(){
         return  id;
@@ -66,5 +67,11 @@ public class User {
     }
     public void setUserToken(String userToken) {
         this.userToken = userToken;
+    }
+    public String getHeadImageUrl(){
+        return headImageUrl;
+    }
+    public void setHeadImageUrl(String headImageUrl) {
+        this.headImageUrl = headImageUrl;
     }
 }

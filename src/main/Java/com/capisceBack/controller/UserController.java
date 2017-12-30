@@ -1,4 +1,6 @@
 package com.capisceBack.controller;
+import com.capisceBack.model.Company;
+import com.capisceBack.model.OtherUser;
 import com.capisceBack.service.UserService;
 import com.capisceBack.model.User;
 import com.capisceBack.util.Response;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 
@@ -47,8 +51,9 @@ public class UserController {
         String password = (String) data.get("password");
         String phone = (String) data.get("phone");
         String deviceToken = (String) data.get("deviceToken");
+        String registerStatus = (String) data.get("registerStatus");
         try {
-            this.userService.userRegister(userName, password, phone, deviceToken);
+            this.userService.userRegister(userName, password, phone, deviceToken,registerStatus);
             result = Response.RESPONSE_RESULT_SUCCESS;
             responseContent.setResponseResult(result);
             responseContent.setResponseMsg(result);
@@ -93,5 +98,29 @@ public class UserController {
         }
         return responseContent.generateResponse();
     }
-
+    @RequestMapping(value = "/getOther", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getOtherUserInfo(@RequestBody Map<String, Object> data) throws IOException {
+        Response responseContent = ResponseFactory.newInstance();
+        String result = Response.RESPONSE_RESULT_ERROR;
+        String realName = (String) data.get("realName");
+        List<OtherUser> otherUserInfo = this.userService.getOtherUserInfo(realName);
+        if (otherUserInfo.size()==0){
+            OtherUser nullShow = new OtherUser();
+            nullShow.setUsername("未找到用户");
+            nullShow.setRegisterStatus("    ");
+            otherUserInfo.add(nullShow);
+        }
+        try {
+            result = Response.RESPONSE_RESULT_SUCCESS;
+            HashMap otherUserMap = new HashMap();
+            otherUserMap.put("multipleUser", otherUserInfo);
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(otherUserMap);
+        }catch (Exception e){
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(e.getMessage());
+        }
+        return responseContent.generateResponse();
+    }
 }

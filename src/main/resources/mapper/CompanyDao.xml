@@ -22,7 +22,7 @@
     </select>
 
     <select id="createCompanyTable" parameterType="String" statementType="STATEMENT">
-        CREATE TABLE  ${company}
+        CREATE TABLE  company_multiple.${company}
         (
           userName VARCHAR(20),
           apartment VARCHAR(20),
@@ -32,7 +32,7 @@
     </select>
 
     <select id="createFunderData" parameterType="String" statementType="STATEMENT">
-        INSERT ${company} SET userName = ${userName},level = 4
+        INSERT company_multiple.${company} SET userName = ${userName},level = 4
     </select>
 
     <select id="fillTheUserData" parameterType="String">
