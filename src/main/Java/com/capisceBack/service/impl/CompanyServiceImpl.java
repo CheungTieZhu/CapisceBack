@@ -26,10 +26,12 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public void createCompany(String company, String business, String description, String companyIcon,String userName) {
-        this.companyDao.setCompanyDescription(company,business,description,companyIcon);
-        this.companyDao.createCompanyTable(company);
         String userNameAfterHandle = "'"+userName+"'";
+        String companyTask = company+"_"+"task";
+        this.companyDao.createCompanyTable(company);
+        this.companyDao.createTaskTable(companyTask);
         this.companyDao.createFunderData(company,userNameAfterHandle);
+        this.companyDao.setCompanyDescription(company,business,description,companyIcon);
         this.companyDao.fillTheUserData(company,userName);
     }
 }

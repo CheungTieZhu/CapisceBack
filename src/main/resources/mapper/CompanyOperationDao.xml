@@ -17,4 +17,31 @@
           company.company = #{company}
         group by description.company
     </select>
+
+    <select id="registerNewMember" parameterType="String" statementType="STATEMENT">
+        INSERT company_multiple.${company} SET userName = ${userName},level = 0,realName = ${realName}
+    </select>
+
+    <select id="addDepartment" parameterType="Map" statementType="STATEMENT">
+        UPDATE company_multiple.${infoMap.company} SET level = 2,apartment = ${infoMap.apartment},departmentDescription=${infoMap.departmentDescription} WHERE userName = ${infoMap.userName}
+    </select>
+
+    <select id="addTeam" parameterType="Map" statementType="STATEMENT">
+        UPDATE company_multiple.${infoMap.company} SET level = 1,team = ${infoMap.team},teamDescription=${infoMap.teamDescription} WHERE userName = ${infoMap.userName}
+    </select>
+
+    <select id="searchPerson" resultType="Map" parameterType="Map" statementType="STATEMENT">
+        SELECT userName,headImageUrl FROM company_multiple.${infoMap.company} WHERE realName = ${infoMap.realName};
+    </select>
+
+    <select id="fillUserOrganization" parameterType="Map" >
+        INSERT capisce.company_orgnization_detail
+        SET userName = #{data.userName},
+        company = #{data.company},
+        level = 0,
+        realName = #{data.realName},
+        companyIcon = #{data.companyIcon},
+        userToken = (SELECT userToken FROM capisce.user_info_log_in WHERE userName = #{data.userName})
+    </select>
+
 </mapper>

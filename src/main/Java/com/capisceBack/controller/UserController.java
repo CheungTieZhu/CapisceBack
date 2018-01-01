@@ -103,8 +103,7 @@ public class UserController {
     Map<String, Object> getOtherUserInfo(@RequestBody Map<String, Object> data) throws IOException {
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
-        String realName = (String) data.get("realName");
-        List<OtherUser> otherUserInfo = this.userService.getOtherUserInfo(realName);
+        List<OtherUser> otherUserInfo = this.userService.getOtherUserInfo(data);
         if (otherUserInfo.size()==0){
             OtherUser nullShow = new OtherUser();
             nullShow.setUsername("未找到用户");

@@ -41,8 +41,8 @@
           userName =  #{userMap.userName}
     </select>
 
-    <select id="getOtherUserInfo" resultType="Map" parameterType="String">
-        SELECT userName,headImageUrl,registerStatus FROM user_info_log_in WHERE realName = #{realName}
+    <select id="getOtherUserInfo" resultType="Map" parameterType="Map">
+        SELECT userName,headImageUrl,registerStatus FROM user_info_log_in WHERE realName = #{data.realName} AND userName != #{data.userName}
     </select>
 
 </mapper>

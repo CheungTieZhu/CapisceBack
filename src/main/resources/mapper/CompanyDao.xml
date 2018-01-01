@@ -24,10 +24,14 @@
     <select id="createCompanyTable" parameterType="String" statementType="STATEMENT">
         CREATE TABLE  company_multiple.${company}
         (
-          userName VARCHAR(20),
+          userName VARCHAR(20) PRIMARY KEY NOT NULL,
           apartment VARCHAR(20),
           team VARCHAR(20),
-          level INT
+          level INT,
+          realName VARCHAR(20) DEFAULT 'unknown',
+          departmentDescription VARCHAR(255),
+          teamDescription VARCHAR(255),
+          headImageUrl VARCHAR(255) DEFAULT '0'
         );
     </select>
 
@@ -41,5 +45,16 @@
             userToken = ( SELECT userToken  FROM user_info_log_in  WHERE userName = #{userName}),
             level = 4,
             realName = ( SELECT realName  FROM user_info_log_in  WHERE userName = #{userName})
+    </select>
+
+    <select id="createTaskTable" parameterType="String" statementType="STATEMENT">
+        CREATE TABLE  multiple_company_task.${companyTask}
+        (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        userName VARCHAR(20),
+        realName VARCHAR(20),
+        taskCategory VARCHAR(20),
+        taskDescription VARCHAR(255)
+        );
     </select>
 </mapper>

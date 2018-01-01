@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
     User userLogin(@Param("userName")String userName,@Param("password")String password);
@@ -12,5 +13,5 @@ public interface UserDao {
     void userRegister(@Param("userMap")HashMap userMap);
     void userLogOut(@Param("userMap")HashMap userMap);
     User getUserInfo(@Param("userName")String userName,@Param("userToken")String userToken);
-    List<OtherUser> getOtherUserInfo(@Param("realName")String realName);
+    List<OtherUser> getOtherUserInfo(@Param("data")Map<String, Object> data);
 }

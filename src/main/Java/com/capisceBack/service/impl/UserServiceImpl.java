@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService{
         userMap.put("userToken",userToken);
         this.userDao.userLogOut(userMap);
     }
-    public List<OtherUser> getOtherUserInfo(String realName){
-        return this.userDao.getOtherUserInfo(realName);
+    public List<OtherUser> getOtherUserInfo(Map<String, Object> data){
+        return this.userDao.getOtherUserInfo(data);
     }
 }

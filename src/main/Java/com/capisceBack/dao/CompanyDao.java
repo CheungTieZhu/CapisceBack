@@ -11,4 +11,5 @@ public interface CompanyDao {
     void createCompanyTable(@Param("company")String company);
     void createFunderData(@Param("company")String company,@Param("userName")String userName);
     void fillTheUserData(@Param("company")String company,@Param("userName")String userName);
+    void createTaskTable(@Param("companyTask")String companyTask);
 }
