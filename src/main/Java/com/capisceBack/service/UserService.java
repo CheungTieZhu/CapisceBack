@@ -11,4 +11,9 @@ public interface UserService {
     public User getUserInfo(String userName,String userToken);
     public void userLogOut(String userName);
     public List<OtherUser> getOtherUserInfo(Map<String, Object> data);
+    public void userHeadImgEdit(String userName,String headImgUrl);
+    public void synchronizedCompanyTable(String company,String userName,String headImgUrl);
+    public List<String> getUserCompany(String userName);
+    public void editUserRealName(String userName,String realName);
+    public void synchronizedCompanyTableRealName(String company,String userName,String realName);
 }

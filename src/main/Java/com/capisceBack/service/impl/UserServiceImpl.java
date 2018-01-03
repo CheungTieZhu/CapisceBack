@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("userService")
-public class UserServiceImpl implements UserService{
+ class UserServiceImpl implements UserService{
     @Resource
     private UserDao userDao;
     public User userLogin(String userName,String password){
@@ -54,5 +54,34 @@ public class UserServiceImpl implements UserService{
     }
     public List<OtherUser> getOtherUserInfo(Map<String, Object> data){
         return this.userDao.getOtherUserInfo(data);
+    }
+
+    @Override
+    public void userHeadImgEdit(String userName, String headImgUrl) {
+        this.userDao.userHeadImgEdit(userName,headImgUrl);
+    }
+
+    @Override
+    public void synchronizedCompanyTable(String company,String userName, String headImgUrl) {
+        userName = "'"+userName+"'";
+        headImgUrl = "'"+headImgUrl+"'";
+        this.userDao.synchronizedCompanyTable(company,userName,headImgUrl);
+    }
+
+    @Override
+    public List<String> getUserCompany(String userName) {
+        return this.userDao.getUserCompany(userName);
+    }
+
+    @Override
+    public void editUserRealName(String userName, String realName) {
+        this.userDao.editUserRealName(userName,realName);
+    }
+
+    @Override
+    public void synchronizedCompanyTableRealName(String company, String userName, String realName) {
+        userName = "'"+userName+"'";
+        realName = "'"+realName+"'";
+        this.userDao.synchronizedCompanyTableRealName(company,userName,realName);
     }
 }

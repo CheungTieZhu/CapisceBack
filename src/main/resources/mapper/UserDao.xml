@@ -42,7 +42,27 @@
     </select>
 
     <select id="getOtherUserInfo" resultType="Map" parameterType="Map">
-        SELECT userName,headImageUrl,registerStatus FROM user_info_log_in WHERE realName = #{data.realName} AND userName != #{data.userName}
+    SELECT userName,headImageUrl,registerStatus FROM user_info_log_in WHERE realName = #{data.realName} AND userName != #{data.userName}
+</select>
+
+    <select id="getUserCompany" resultType="String" parameterType="String">
+        SELECT company FROM capisce.company_orgnization_detail  WHERE userName = #{userName}
+    </select>
+
+    <select id="userHeadImgEdit"  parameterType="String">
+        UPDATE capisce.user_info_log_in SET headImageUrl = #{headImgUrl} WHERE userName = #{userName}
+    </select>
+
+    <select id="synchronizedCompanyTable"  parameterType="String" statementType="STATEMENT">
+        UPDATE company_multiple.${company} SET headImageUrl = ${headImgUrl} WHERE userName = ${userName}
+    </select>
+
+    <select id="editUserRealName"  parameterType="String">
+        UPDATE capisce.user_info_log_in SET realName = #{realName} WHERE userName = #{userName}
+    </select>
+
+    <select id="synchronizedCompanyTableRealName"  parameterType="String" statementType="STATEMENT">
+        UPDATE company_multiple.${company} SET realName = ${realName} WHERE userName = ${userName}
     </select>
 
 </mapper>

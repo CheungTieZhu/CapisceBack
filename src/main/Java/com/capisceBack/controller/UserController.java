@@ -122,4 +122,49 @@ public class UserController {
         }
         return responseContent.generateResponse();
     }
+    @RequestMapping(value = "/userHeadImgEdit", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> userHeadImgEdit(@Param("userName") String userName,
+                                        @Param("headImageUrl") String headImageUrl) throws IOException {
+        Response responseContent = ResponseFactory.newInstance();
+        String result = Response.RESPONSE_RESULT_ERROR;
+        try {
+            this.userService.userHeadImgEdit(userName,headImageUrl);
+            List<String> companyList = this.userService.getUserCompany(userName);
+            for (int i = 0;i<companyList.size();i++){
+                String company = companyList.get(i);
+                this.userService.synchronizedCompanyTable(company,userName,headImageUrl);
+            }
+            result = Response.RESPONSE_RESULT_SUCCESS;
+            responseContent.setResponseResult(result);
+            responseContent.setResponseMsg(result);
+        }catch (Exception e){
+            responseContent.setResponseResult(result);
+            responseContent.setResponseMsg(e.getMessage());
+        }
+        return responseContent.generateResponse();
+    }
+    @RequestMapping(value = "/editUserRealName", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> editUserRealName(@Param("userName") String userName,
+                                         @Param("realName") String realName) throws IOException {
+        Response responseContent = ResponseFactory.newInstance();
+        String result = Response.RESPONSE_RESULT_ERROR;
+        try {
+            this.userService.editUserRealName(userName,realName);
+            List<String> companyList = this.userService.getUserCompany(userName);
+            for (int i = 0;i<companyList.size();i++){
+                String company = companyList.get(i);
+                this.userService.synchronizedCompanyTableRealName(company,userName,realName);
+            }
+            result = Response.RESPONSE_RESULT_SUCCESS;
+            responseContent.setResponseResult(result);
+            responseContent.setResponseMsg(result);
+        }catch (Exception e){
+            responseContent.setResponseResult(result);
+            responseContent.setResponseMsg(e.getMessage());
+        }
+        return responseContent.generateResponse();
+    }
+
 }

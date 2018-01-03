@@ -36,7 +36,7 @@ public class CompanyController {
             nullShow.setCompany("UNKNOWN");
             nullShow.setLevel(0);
             nullShow.setTeam("UNKNOWN");
-            nullShow.setCompanyIcon("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514518660457&di=54c4f4c1310637784b0a742a8b367e17&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D1268385509%2C2707822519%26fm%3D214%26gp%3D0.jpg");
+            nullShow.setCompanyIcon("0");
             company.add(nullShow);
         }
         try {

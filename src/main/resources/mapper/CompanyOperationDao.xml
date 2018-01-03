@@ -36,7 +36,8 @@
 
     <select id="fillUserOrganization" parameterType="Map" >
         INSERT capisce.company_orgnization_detail
-        SET userName = #{data.userName},
+        SET
+        userName = #{data.userName},
         company = #{data.company},
         level = 0,
         realName = #{data.realName},

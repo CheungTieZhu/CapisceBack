@@ -14,4 +14,9 @@ public interface UserDao {
     void userLogOut(@Param("userMap")HashMap userMap);
     User getUserInfo(@Param("userName")String userName,@Param("userToken")String userToken);
     List<OtherUser> getOtherUserInfo(@Param("data")Map<String, Object> data);
+    void userHeadImgEdit(@Param("userName")String userName,@Param("headImgUrl")String headImgUrl);
+    List<String> getUserCompany(@Param("userName")String userName);
+    void synchronizedCompanyTable(@Param("company")String company,@Param("userName")String userName,@Param("headImgUrl")String headImgUrl);
+    void editUserRealName(@Param("userName")String userName,@Param("realName")String realName);
+    void synchronizedCompanyTableRealName(@Param("company")String company,@Param("userName")String userName,@Param("realName")String realName);
 }
