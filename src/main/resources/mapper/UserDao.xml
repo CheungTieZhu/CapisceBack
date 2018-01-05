@@ -53,6 +53,10 @@
         UPDATE capisce.user_info_log_in SET headImageUrl = #{headImgUrl} WHERE userName = #{userName}
     </select>
 
+    <select id="notificationUserHeadImgEdit"  parameterType="String">
+        UPDATE capisce.user_notification SET userHeadImage = #{headImgUrl} WHERE userName = #{userName}
+    </select>
+
     <select id="synchronizedCompanyTable"  parameterType="String" statementType="STATEMENT">
         UPDATE company_multiple.${company} SET headImageUrl = ${headImgUrl} WHERE userName = ${userName}
     </select>
@@ -63,6 +67,10 @@
 
     <select id="synchronizedCompanyTableRealName"  parameterType="String" statementType="STATEMENT">
         UPDATE company_multiple.${company} SET realName = ${realName} WHERE userName = ${userName}
+    </select>
+
+    <select id="editOrginalTable"  parameterType="String">
+        UPDATE capisce.company_orgnization_detail SET realName = #{realName} WHERE userName = #{userName}
     </select>
 
 </mapper>

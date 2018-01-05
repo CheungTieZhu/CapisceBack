@@ -25,16 +25,19 @@ public class CompanyOperationController {
     @Resource
     private CompanyOperationService companyOperationService;
 
-    @RequestMapping(value = "/getInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/getInfo", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> getCompanyInfo(@Param("company") String company) throws IOException {
+    Map<String, Object> getCompanyInfo(@RequestBody Map<String, Object> data) throws IOException {
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
+        String company = (String) data.get("company");
         CompanyDescription companyDescription = this.companyOperationService.getCompanyInfo(company);
         if (companyDescription==null){
             responseContent.setResponseMsg(result);
             responseContent.setResponseData(null);
         }else {
+                int employeeNumber = this.companyOperationService.getEmployeeNumber(company);
+                companyDescription.setEmployeeNumber(employeeNumber);
                 result = Response.RESPONSE_RESULT_SUCCESS;
                 responseContent.setResponseMsg(result);
                 responseContent.setResponseData(companyDescription);

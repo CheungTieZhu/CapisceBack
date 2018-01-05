@@ -31,4 +31,6 @@
         UPDATE capisce.user_notification SET senderAccept = #{data.senderAccept} WHERE id = #{data.id}
     </select>
 
+
+
 </mapper>

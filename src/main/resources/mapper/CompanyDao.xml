@@ -36,7 +36,7 @@
     </select>
 
     <select id="createFunderData" parameterType="String" statementType="STATEMENT">
-        INSERT company_multiple.${company} SET userName = ${userName},level = 4
+        INSERT company_multiple.${company} SET userName = ${userName},level = 4,headImageUrl = (SELECT headImageUrl FROM capisce.user_info_log_in WHERE userName = ${userName});
     </select>
 
     <select id="fillTheUserData" parameterType="String">
@@ -44,7 +44,8 @@
         SET company = #{company},userName = #{userName},
             userToken = ( SELECT userToken  FROM user_info_log_in  WHERE userName = #{userName}),
             level = 4,
-            realName = ( SELECT realName  FROM user_info_log_in  WHERE userName = #{userName})
+            realName = ( SELECT realName  FROM user_info_log_in  WHERE userName = #{userName}),
+            companyIcon = #{companyIcon}
     </select>
 
     <select id="createTaskTable" parameterType="String" statementType="STATEMENT">

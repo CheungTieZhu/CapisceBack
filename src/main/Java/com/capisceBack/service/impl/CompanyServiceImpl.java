@@ -32,6 +32,6 @@ public class CompanyServiceImpl implements CompanyService{
         this.companyDao.createTaskTable(companyTask);
         this.companyDao.createFunderData(company,userNameAfterHandle);
         this.companyDao.setCompanyDescription(company,business,description,companyIcon);
-        this.companyDao.fillTheUserData(company,userName);
+        this.companyDao.fillTheUserData(company,userName,companyIcon);
     }
 }

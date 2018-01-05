@@ -59,6 +59,7 @@ import java.util.Map;
     @Override
     public void userHeadImgEdit(String userName, String headImgUrl) {
         this.userDao.userHeadImgEdit(userName,headImgUrl);
+        this.userDao.notificationUserHeadImgEdit(userName,headImgUrl);
     }
 
     @Override
@@ -76,6 +77,7 @@ import java.util.Map;
     @Override
     public void editUserRealName(String userName, String realName) {
         this.userDao.editUserRealName(userName,realName);
+        this.userDao.editOrginalTable(userName,realName);
     }
 
     @Override

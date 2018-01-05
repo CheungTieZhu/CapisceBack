@@ -144,18 +144,17 @@ public class UserController {
         }
         return responseContent.generateResponse();
     }
-    @RequestMapping(value = "/editUserRealName", method = RequestMethod.GET)
+    @RequestMapping(value = "/editUserRealName", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> editUserRealName(@Param("userName") String userName,
-                                         @Param("realName") String realName) throws IOException {
+    Map<String, Object> editUserRealName(@RequestBody Map<String, Object> data) throws IOException {
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
         try {
-            this.userService.editUserRealName(userName,realName);
-            List<String> companyList = this.userService.getUserCompany(userName);
+            this.userService.editUserRealName((String) data.get("userName"),(String) data.get("realName"));
+            List<String> companyList = this.userService.getUserCompany((String) data.get("userName"));
             for (int i = 0;i<companyList.size();i++){
                 String company = companyList.get(i);
-                this.userService.synchronizedCompanyTableRealName(company,userName,realName);
+                this.userService.synchronizedCompanyTableRealName(company,(String) data.get("userName"),(String) data.get("realName"));
             }
             result = Response.RESPONSE_RESULT_SUCCESS;
             responseContent.setResponseResult(result);

@@ -4,8 +4,7 @@
     <select id="getCompanyInfo" resultType="CompanyDescription" parameterType="String">
         SELECT
           description.*,
-          GROUP_CONCAT(company.realName) as ownerName,
-          COUNT(*) as employeeNumber
+          GROUP_CONCAT(company.realName) as ownerName
         from
           company_detail_description as description,
           company_orgnization_detail as company
@@ -17,9 +16,12 @@
           company.company = #{company}
         group by description.company
     </select>
+    <select id="getEmployeeNumber" resultType="Int" parameterType="String" statementType="STATEMENT">
+        SELECT COUNT(*) FROM company_multiple.${company}
+    </select>
 
     <select id="registerNewMember" parameterType="String" statementType="STATEMENT">
-        INSERT company_multiple.${company} SET userName = ${userName},level = 0,realName = ${realName}
+        INSERT company_multiple.${company} SET userName = ${userName},level = 0,realName = ${realName},headImageUrl = ${headImageUrl}
     </select>
 
     <select id="addDepartment" parameterType="Map" statementType="STATEMENT">

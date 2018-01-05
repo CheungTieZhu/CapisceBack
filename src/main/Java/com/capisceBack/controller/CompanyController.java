@@ -52,11 +52,12 @@ public class CompanyController {
 
         return responseContent.generateResponse();
     }
-    @RequestMapping(value = "/getCompanyDescription", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCompanyDescription", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> getCompanyDescription(@Param("company") String company) throws IOException {
+    Map<String, Object> getCompanyDescription(@RequestBody Map<String, Object> data) throws IOException {
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
+        String company = (String) data.get("company");
         CompanyDescription companyDescription = this.companyService.getCompanyDescription(company);
         if (companyDescription==null){
             responseContent.setResponseMsg(result);
@@ -68,13 +69,14 @@ public class CompanyController {
         }
         return responseContent.generateResponse();
     }
-    @RequestMapping(value = "/createCompany", method = RequestMethod.GET)
+    @RequestMapping(value = "/createCompany", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> createCompany(@Param("company") String company,
-                                      @Param("business") String business,
-                                      @Param("description") String description,
-                                      @Param("description") String companyIcon,
-                                      @Param("userName") String userName) throws IOException {
+    Map<String, Object> createCompany( @RequestBody Map<String, Object> data) throws IOException {
+        String company = (String) data.get("company");
+        String business = (String) data.get("business");
+        String description = (String) data.get("description");
+        String userName = (String) data.get("userName");
+        String companyIcon = (String) data.get("companyIcon");
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
         try {

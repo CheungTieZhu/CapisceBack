@@ -10,6 +10,6 @@ public interface CompanyDao {
     void setCompanyDescription(@Param("company")String company,@Param("business")String business,@Param("description")String description,@Param("companyIcon")String companyIcon);
     void createCompanyTable(@Param("company")String company);
     void createFunderData(@Param("company")String company,@Param("userName")String userName);
-    void fillTheUserData(@Param("company")String company,@Param("userName")String userName);
+    void fillTheUserData(@Param("company")String company,@Param("userName")String userName,@Param("companyIcon")String companyIcon);
     void createTaskTable(@Param("companyTask")String companyTask);
 }

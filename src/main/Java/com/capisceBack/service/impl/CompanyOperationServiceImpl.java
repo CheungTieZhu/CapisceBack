@@ -29,8 +29,9 @@ public class CompanyOperationServiceImpl implements CompanyOperationService{
         String company = (String) data.get("company");
         String userName =  "'"+ (String) data.get("userName") +"'";
         String realName = "'"+ (String) data.get("realName") +"'";
+        String headImageUrl =  "'"+ (String) data.get("headImageUrl") +"'";
         this.companyOperationDao.fillUserOrganization(data);
-        this.companyOperationDao.registerNewMember(company,userName,realName);
+        this.companyOperationDao.registerNewMember(company,userName,realName,headImageUrl);
     }
 
     @Override
@@ -69,5 +70,10 @@ public class CompanyOperationServiceImpl implements CompanyOperationService{
         infoMap.put("company",company);
         infoMap.put("realName",realName);
         return this.companyOperationDao.searchPerson(infoMap);
+    }
+
+    @Override
+    public int getEmployeeNumber(String company) {
+        return this.companyOperationDao.getEmployeeNumber(company);
     }
 }

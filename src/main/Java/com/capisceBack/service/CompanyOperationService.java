@@ -12,4 +12,5 @@ public interface CompanyOperationService {
     public void addDeppartment(Map<String, Object> data);
     public void addTeam(Map<String, Object> data);
     public List<OtherUser> searchPerson(Map<String, Object> data);
+    public int getEmployeeNumber(String company);
 }
