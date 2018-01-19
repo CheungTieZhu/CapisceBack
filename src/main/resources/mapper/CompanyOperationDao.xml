@@ -25,15 +25,26 @@
     </select>
 
     <select id="addDepartment" parameterType="Map" statementType="STATEMENT">
-        UPDATE company_multiple.${infoMap.company} SET level = 2,apartment = ${infoMap.apartment},departmentDescription=${infoMap.departmentDescription} WHERE userName = ${infoMap.userName}
+        UPDATE company_multiple.${infoMap.company}
+        SET
+        level = CASE WHEN (level &lt; 2) THEN 2 ELSE level END,
+        apartment = ${infoMap.apartment}
+        WHERE
+        userName = ${infoMap.userName}
     </select>
 
     <select id="addTeam" parameterType="Map" statementType="STATEMENT">
-        UPDATE company_multiple.${infoMap.company} SET level = 1,team = ${infoMap.team},teamDescription=${infoMap.teamDescription} WHERE userName = ${infoMap.userName}
+        UPDATE company_multiple.${infoMap.company}
+        SET
+        level = CASE WHEN (level &lt; 1) THEN 1 ELSE level END,
+        apartment = ${infoMap.department},
+        team = ${infoMap.team}
+        WHERE
+        userName = ${infoMap.userName}
     </select>
 
     <select id="searchPerson" resultType="Map" parameterType="Map" statementType="STATEMENT">
-        SELECT userName,headImageUrl FROM company_multiple.${infoMap.company} WHERE realName = ${infoMap.realName};
+        SELECT userName,headImageUrl,realName FROM company_multiple.${infoMap.company} WHERE realName LIKE ${infoMap.realName}
     </select>
 
     <select id="fillUserOrganization" parameterType="Map" >
@@ -45,6 +56,39 @@
         realName = #{data.realName},
         companyIcon = #{data.companyIcon},
         userToken = (SELECT userToken FROM capisce.user_info_log_in WHERE userName = #{data.userName})
+    </select>
+
+    <select id="getDepartment" resultType="String" parameterType="String" statementType="STATEMENT">
+        SELECT department FROM company_multiple.${department}
+    </select>
+
+    <select id="fillDepartmentDescription" parameterType="Map" statementType="STATEMENT">
+        INSERT company_multiple.${infoMap.departmentTableName} SET department = ${infoMap.apartment},departmentDescription = ${infoMap.departmentDescription}
+    </select>
+
+    <select id="fillTeamDescription" parameterType="Map" statementType="STATEMENT">
+        INSERT  company_multiple.${infoMap.teamTableName} SET department = ${infoMap.department},team = ${infoMap.team},teamDescription = ${infoMap.teamDescription}
+    </select>
+
+    <select id="getUserLevel" parameterType="Map" resultType="Int" statementType="STATEMENT">
+        SELECT level FROM company_multiple.${infoMap.company} WHERE  userName = ${infoMap.userName}
+    </select>
+
+    <select id="addDepartmentOtherDuty" parameterType="Map" statementType="STATEMENT">
+        INSERT company_multiple.${infoMap.otherDutyTable}
+        SET
+        userName = ${infoMap.userName},
+        otherDepartment = ${infoMap.department},
+        otherLevel = 2
+    </select>
+
+    <select id="addTeamOtherDuty" parameterType="Map" statementType="STATEMENT">
+        INSERT company_multiple.${infoMap.otherDutyTable}
+        SET
+        userName = ${infoMap.userName},
+        otherDepartment = ${infoMap.department},
+        otherTeam = ${infoMap.team},
+        otherLevel = 1
     </select>
 
 </mapper>

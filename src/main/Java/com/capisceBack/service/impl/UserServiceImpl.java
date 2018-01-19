@@ -53,6 +53,7 @@ import java.util.Map;
         this.userDao.userLogOut(userMap);
     }
     public List<OtherUser> getOtherUserInfo(Map<String, Object> data){
+        data.put("realName","%"+(String)data.get("realName")+"%");
         return this.userDao.getOtherUserInfo(data);
     }
 

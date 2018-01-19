@@ -28,10 +28,16 @@ public class CompanyServiceImpl implements CompanyService{
     public void createCompany(String company, String business, String description, String companyIcon,String userName) {
         String userNameAfterHandle = "'"+userName+"'";
         String companyTask = company+"_"+"task";
+        String department = company+"_"+"department"+"_"+"description";
+        String team = company+"_"+"team"+"_"+"description";
+        String duty =  company+"_"+"otherDuty";
         this.companyDao.createCompanyTable(company);
         this.companyDao.createTaskTable(companyTask);
         this.companyDao.createFunderData(company,userNameAfterHandle);
         this.companyDao.setCompanyDescription(company,business,description,companyIcon);
         this.companyDao.fillTheUserData(company,userName,companyIcon);
+        this.companyDao.addDepartmentDescription(department);
+        this.companyDao.addTeamDescription(team);
+        this.companyDao.addOtherDutyTable(duty);
     }
 }

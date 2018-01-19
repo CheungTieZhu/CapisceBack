@@ -12,7 +12,7 @@
         senderUserName = #{data.senderUserName},
         userHeadImage =  #{data.userHeadImage},
         companyIcon = #{data.companyIcon},
-        realName = #{data.realName},
+        realName = (SELECT realName FROM capisce.user_info_log_in WHERE userName = #{data.userName}),
         senderAccept = #{data.senderAccept}
     </select>
     <select id="getNotification" parameterType="Map" resultType="Map">

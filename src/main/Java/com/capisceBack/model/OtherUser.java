@@ -4,6 +4,7 @@ public class OtherUser {
     private String userName;
     private String registerStatus;
     private String headImageUrl;
+    private String realName;
 
     public String getUserName(){
         return userName;
@@ -23,4 +24,11 @@ public class OtherUser {
     public void setHeadImageUrl(String headImageUrl) {
         this.headImageUrl = headImageUrl;
     }
+    public String getRealName(){
+        return realName;
+    }
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+    
 }

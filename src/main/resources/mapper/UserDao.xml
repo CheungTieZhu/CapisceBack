@@ -42,7 +42,7 @@
     </select>
 
     <select id="getOtherUserInfo" resultType="Map" parameterType="Map">
-    SELECT userName,headImageUrl,registerStatus FROM user_info_log_in WHERE realName = #{data.realName} AND userName != #{data.userName}
+    SELECT userName,headImageUrl,registerStatus,realName FROM user_info_log_in WHERE realName LIKE #{data.realName} AND userName != #{data.userName}
 </select>
 
     <select id="getUserCompany" resultType="String" parameterType="String">

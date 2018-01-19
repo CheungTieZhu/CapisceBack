@@ -29,14 +29,17 @@
           team VARCHAR(20),
           level INT,
           realName VARCHAR(20) DEFAULT 'unknown',
-          departmentDescription VARCHAR(255),
-          teamDescription VARCHAR(255),
           headImageUrl VARCHAR(255) DEFAULT '0'
         );
     </select>
 
     <select id="createFunderData" parameterType="String" statementType="STATEMENT">
-        INSERT company_multiple.${company} SET userName = ${userName},level = 4,headImageUrl = (SELECT headImageUrl FROM capisce.user_info_log_in WHERE userName = ${userName});
+        INSERT company_multiple.${company}
+        SET
+            userName = ${userName},
+            level = 4,
+            headImageUrl = (SELECT headImageUrl FROM capisce.user_info_log_in WHERE userName = ${userName}),
+            realName = (SELECT realName FROM capisce.user_info_log_in WHERE userName = ${userName})
     </select>
 
     <select id="fillTheUserData" parameterType="String">
@@ -58,4 +61,32 @@
         taskDescription VARCHAR(255)
         );
     </select>
+
+    <select id="addDepartmentDescription" parameterType="String" statementType="STATEMENT">
+        CREATE TABLE  company_multiple.${department}
+        (
+        department VARCHAR(20) PRIMARY KEY NOT NULL,
+        departmentDescription VARCHAR(255)
+        );
+    </select>
+
+    <select id="addTeamDescription" parameterType="String" statementType="STATEMENT">
+        CREATE TABLE  company_multiple.${team}
+        (
+        department VARCHAR(20),
+        team VARCHAR(20),
+        teamDescription VARCHAR(255)
+        );
+    </select>
+
+    <select id="addOtherDutyTable" parameterType="String" statementType="STATEMENT">
+        CREATE TABLE  company_multiple.${duty}
+        (
+            userName VARCHAR(20),
+            otherDepartment VARCHAR(20),
+            otherTeam VARCHAR(20),
+            otherLevel INT
+        );
+    </select>
+
 </mapper>

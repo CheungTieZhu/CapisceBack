@@ -12,4 +12,7 @@ public interface CompanyDao {
     void createFunderData(@Param("company")String company,@Param("userName")String userName);
     void fillTheUserData(@Param("company")String company,@Param("userName")String userName,@Param("companyIcon")String companyIcon);
     void createTaskTable(@Param("companyTask")String companyTask);
+    void addDepartmentDescription(@Param("department")String department);
+    void addTeamDescription(@Param("team")String team);
+    void addOtherDutyTable(@Param("duty")String duty);
 }

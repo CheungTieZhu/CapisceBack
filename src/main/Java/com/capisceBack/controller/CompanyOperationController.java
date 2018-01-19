@@ -61,13 +61,28 @@ public class CompanyOperationController {
         }
         return responseContent.generateResponse();
     }
-    @RequestMapping(value = "/addDeppartment", method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrganization", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> addDeppartment(@RequestBody Map<String, Object> data) throws IOException {
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
+        int request = (int) data.get("request");
+        int level = this.companyOperationService.getUserLevel(data);
         try {
-            this.companyOperationService.addDeppartment(data);
+            if (request == 0) {
+                if (level < 2) {
+                    this.companyOperationService.addDepartment(data);
+                }else{
+                    this.companyOperationService.addDepartmentOtherDuty(data);
+                }
+            }else{
+                if (level < 1) {
+                    this.companyOperationService.addTeam(data);
+                }else{
+                    this.companyOperationService.addTeamOtherDuty(data);
+                }
+
+            }
             result = Response.RESPONSE_RESULT_SUCCESS;
             responseContent.setResponseResult(result);
             responseContent.setResponseMsg(result);
@@ -77,33 +92,13 @@ public class CompanyOperationController {
         }
         return responseContent.generateResponse();
     }
-    @RequestMapping(value = "/addTeam", method = RequestMethod.POST)
-    public @ResponseBody
-    Map<String, Object> addTeam(@RequestBody Map<String, Object> data) throws IOException {
-        Response responseContent = ResponseFactory.newInstance();
-        String result = Response.RESPONSE_RESULT_ERROR;
-        try {
-            this.companyOperationService.addTeam(data);
-            result = Response.RESPONSE_RESULT_SUCCESS;
-            responseContent.setResponseResult(result);
-            responseContent.setResponseMsg(result);
-        }catch (Exception e){
-            responseContent.setResponseResult(result);
-            responseContent.setResponseMsg(e.getMessage());
-        }
-        return responseContent.generateResponse();
-    }
+
     @RequestMapping(value = "/searchPerson", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> searchPerson(@RequestBody Map<String, Object> data) throws IOException {
         Response responseContent = ResponseFactory.newInstance();
         String result = Response.RESPONSE_RESULT_ERROR;
         List<OtherUser> otherUserInfo = this.companyOperationService.searchPerson(data);
-        if (otherUserInfo.size()==0){
-            OtherUser nullShow = new OtherUser();
-            nullShow.setUsername("未找到用户");
-            otherUserInfo.add(nullShow);
-        }
         try {
             result = Response.RESPONSE_RESULT_SUCCESS;
             HashMap otherUserMap = new HashMap();
@@ -117,5 +112,22 @@ public class CompanyOperationController {
         return responseContent.generateResponse();
     }
 
+    @RequestMapping(value = "/getDepartment", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> getDepartment(@RequestBody Map<String, Object> data) throws IOException {
+        Response responseContent = ResponseFactory.newInstance();
+        String result = Response.RESPONSE_RESULT_ERROR;
+
+        try {
+            result = Response.RESPONSE_RESULT_SUCCESS;
+            List<String> department = this.companyOperationService.getDepartment(data);
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(department);
+        }catch (Exception e){
+            responseContent.setResponseMsg(result);
+            responseContent.setResponseData(e.getMessage());
+        }
+        return responseContent.generateResponse();
+    }
 
 }
